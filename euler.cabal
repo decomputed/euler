@@ -49,7 +49,7 @@ cabal-version:       >=1.10
 
 library
 
-  ghc-options:         -Wall
+--  ghc-options:         -Wall
 
   -- Modules exported by the library.
   exposed-modules:     Euler
@@ -73,10 +73,13 @@ library
 test-suite spec
   type: exitcode-stdio-1.0
 
-  ghc-options: -Wall
+--  ghc-options: -Wall
 
   hs-source-dirs: test
 
   main-is: Spec.hs
 
-  build-depends: base == 4.*, euler == 0.1.0,  hspec == 2.*
+  build-depends:
+    base  >= 4.7,
+    euler >= 0.2.0 && < 0.3,
+    hspec == 2.*
