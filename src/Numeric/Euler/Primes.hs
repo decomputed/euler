@@ -1,4 +1,7 @@
-module Euler (isPrime2) where
+module Numeric.Euler.Primes (
+  isPrime2,
+  trialAndDivision2
+  ) where
 
 import Data.List (sort)
 
