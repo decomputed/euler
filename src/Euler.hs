@@ -1,4 +1,4 @@
-module Euler where
+module Euler (isPrime2) where
 
 import Data.List (sort)
 

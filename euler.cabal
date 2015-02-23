@@ -14,9 +14,10 @@ version:             0.1.0
 
 -- A short (one-line) description of the package.
 synopsis:            Mathematics utilities for Haskell
-description:         Mathematics utilities for Haskell
+
 -- A longer description of the package.
--- description:         
+description:         Mathematics utilities and functions for Haskell, currently
+                     aimed at solving problems inn Project Euler.
 
 -- URL for the project homepage or repository.
 homepage:            https://github.com/decomputed/euler
@@ -34,9 +35,6 @@ author:              Luis Rodrigues Soares
 -- patches.
 maintainer:          luis@decomputed.com
 
--- A copyright notice.
--- copyright:           
-
 category:            Math
 
 build-type:          Simple
@@ -50,21 +48,35 @@ cabal-version:       >=1.10
 
 
 library
+
+  ghc-options:         -Wall
+
   -- Modules exported by the library.
-  exposed-modules: Euler
-  
+  exposed-modules:     Euler
+
   -- Modules included in this library but not exported.
-  -- other-modules:       
-  
+  -- other-modules:
+
   -- LANGUAGE extensions used by modules in this package.
-  -- other-extensions:    
-  
+  -- other-extensions:
+
   -- Other library packages from which modules are imported.
   build-depends:       base >=4.7 && <4.8
-  
+
   -- Directories containing source files.
   hs-source-dirs:      src
-  
+
   -- Base language which the package is written in.
   default-language:    Haskell2010
-  
+
+
+test-suite spec
+  type: exitcode-stdio-1.0
+
+  ghc-options: -Wall
+
+  hs-source-dirs: test
+
+  main-is: Spec.hs
+
+  build-depends: base == 4.*, euler == 0.1.0,  hspec == 2.*
