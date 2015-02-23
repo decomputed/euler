@@ -1,5 +1,7 @@
 module Euler where
 
+import Data.List (sort)
+
 
 {-------------------------------------------------
 -------------------------------------------------}
@@ -26,7 +28,7 @@ eSieve3 (x:xs) primes = eSieve3 ([y | y <- xs, y `mod` x /= 0]) (x:primes)
 {-------------------------------------------------
 -------------------------------------------------}
 
-
+initialSundaramSieve :: Int -> [Int]
 initialSundaramSieve limit =
   let topi = floor (sqrt ((fromIntegral limit) / 2)) in
   [i + j + 2 * i * j | i <- [1..topi],
@@ -47,14 +49,18 @@ removeComposites (n:ns) (c:cs)
 ---------------------------------------------------}
 
 
+initialAtkinSieve :: Int -> [(Int,Int)]
 initialAtkinSieve limit =
-  sort $ zip [n | n <- [60 * w + x | w <- [0..limit `div` 60],
-                        x <- [1,7,11,13,17,19,23,29,31,37,41,43,47,49,53,59]],
-              n <= limit]
+  sort $ zip [n
+             | n <- [60 * w + x
+                    | w <- [0..limit `div` 60],
+                      x <- [1,7,11,13,17,19,23,29,31,37,41,43,47,49,53,59]
+                    ],
+               n <= limit]
   (take limit [0,0..])
 
 
-aFlip :: (x,Int) -> (x,Int)
+aFlip :: (Int,Int) -> (Int,Int)
 aFlip (x,1) = (x,0)
 aFlip (x,0) = (x,1)
 
@@ -68,6 +74,7 @@ flipAll (f:fs) ((s,b):ss)
   | otherwise  = flipAll fs ((s,b):ss)
 
 
+firstStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 firstStep size sieve =
   let topx = floor(sqrt(fromIntegral (size `div` 4)))
       topy = floor(sqrt(fromIntegral size)) in
@@ -77,6 +84,7 @@ firstStep size sieve =
   sieve
 
 
+secondStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 secondStep size sieve =
   let topx = floor(sqrt(fromIntegral (size `div` 3)))
       topy = floor(sqrt(fromIntegral size)) in
@@ -86,6 +94,7 @@ secondStep size sieve =
   sieve
 
 
+thirdStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 thirdStep size sieve =
   let topx = floor(sqrt(fromIntegral size)) in
   flipAll (sort [n | n <- [3*x^2 - y^2 | x <- [1..topx],
@@ -108,13 +117,9 @@ unmarkAll (np:nps) ((s,b):ss)
   | otherwise = (s,b) : (unmarkAll (np:nps) ss)
 
 
+atkin1 :: Int ->  [(Int,Int)]
 atkin1 limit =
-  aSieve1 limit (
-    (thirdStep limit) .
-    (secondStep limit) .
-    (firstStep limit)
-    initialAtkinSieve limit)
-  [(5,1),(3,1),(2,1)]
+  aSieve1 limit ((thirdStep limit) . (secondStep limit) . (firstStep limit) $ initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
 
 
 aSieve1 _     []         primes = primes
