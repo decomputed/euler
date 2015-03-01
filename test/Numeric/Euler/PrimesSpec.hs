@@ -10,4 +10,4 @@ spec :: Spec
 spec = do
   describe "isPrime" $ do
     it "works" $ do
-      isPrime2 7 `shouldBe` True
+      isPrime2 (7 :: Integer) `shouldBe` True
