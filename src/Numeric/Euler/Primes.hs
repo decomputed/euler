@@ -30,7 +30,7 @@ erastothenes3 limit = eSieve3 [3,5..limit] [2]
 
 eSieve3 :: [Int] -> [Int] -> [Int]
 eSieve3 [] primes     = primes
-eSieve3 (x:xs) primes = eSieve3 ([y | y <- xs, y `mod` x /= 0]) (x:primes)
+eSieve3 (x:xs) primes = eSieve3 [y | y <- xs, y `mod` x /= 0] (x:primes)
 
 
 {-------------------------------------------------
@@ -38,22 +38,22 @@ eSieve3 (x:xs) primes = eSieve3 ([y | y <- xs, y `mod` x /= 0]) (x:primes)
 
 initialSundaramSieve :: Int -> [Int]
 initialSundaramSieve limit =
-  let topi = floor ((sqrt ((fromIntegral limit) / 2)) :: Double) in
+  let topi = floor (sqrt (fromIntegral limit / 2) :: Double) in
   [i + j + 2 * i * j | i <- [1..topi],
-   j <- [i..floor (((fromIntegral(limit-i)) / fromIntegral(2*i+1)) :: Double)]]
+   j <- [i..floor ((fromIntegral(limit-i) / fromIntegral(2*i+1)) :: Double)]]
 
 sundaram5 :: Int -> [Int]
 sundaram5 limit =
-  let halfLimit = floor( (((fromIntegral limit) / 2)-1) :: Double) in
-  2:removeComposites ([1..halfLimit]) (sort $ initialSundaramSieve halfLimit) 
+  let halfLimit = floor( ((fromIntegral limit / 2)-1) :: Double) in
+  2:removeComposites [1..halfLimit] (sort $ initialSundaramSieve halfLimit) 
 
 removeComposites :: [Int] -> [Int] -> [Int]
 removeComposites [] _ = []
-removeComposites (n:ns) [] = (2*n+1) : (removeComposites ns [])
+removeComposites (n:ns) [] = (2*n+1) : removeComposites ns []
 removeComposites (n:ns) (c:cs)
   | n == c    = removeComposites ns cs
   | n > c     = removeComposites (n:ns) cs
-  | otherwise = (2*n+1) : (removeComposites ns (c:cs))
+  | otherwise = (2*n+1) : removeComposites ns (c:cs)
 
 {---------------------------------------------------
 ---------------------------------------------------}
@@ -81,15 +81,15 @@ flipAll :: [Int] -> [(Int, Int)] -> [(Int, Int)]
 flipAll _      [] = []
 flipAll []     ss = ss
 flipAll (f:fs) ((s,b):ss)
-  | s < f      = (s,b): (flipAll (f:fs) ss)
-  | s == f     = flipAll fs ((aFlip (s,b)):ss)
+  | s < f      = (s,b): flipAll (f:fs) ss
+  | s == f     = flipAll fs (aFlip (s,b):ss)
   | otherwise  = flipAll fs ((s,b):ss)
 
 
 firstStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 firstStep size sieve =
-  let topx = floor( (sqrt(fromIntegral (size `div` 4))) :: Double)
-      topy = floor( (sqrt(fromIntegral size)) :: Double) in
+  let topx = floor( sqrt(fromIntegral (size `div` 4)) :: Double)
+      topy = floor( sqrt(fromIntegral size) :: Double) in
   flipAll (sort [n | n <- [4*x^(2::Integer) + y^(2::Integer)| x <- [1..topx],
                            y <- [1,3..topy]],
                  n `mod` 60 `elem` [1,13,17,29,37,41,49,53]])
@@ -98,8 +98,8 @@ firstStep size sieve =
 
 secondStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 secondStep size sieve =
-  let topx = floor( (sqrt(fromIntegral (size `div` 3))) :: Double)
-      topy = floor( (sqrt(fromIntegral size)) :: Double) in
+  let topx = floor( sqrt(fromIntegral (size `div` 3)) :: Double)
+      topy = floor( sqrt(fromIntegral size) :: Double) in
   flipAll (sort [n | n <- [3*x^(2::Integer) + y^(2::Integer) | x <- [1,3..topx],
                            y <- [2,4..topy]],
                  n `mod` 60 `elem` [7,19,31,43]])
@@ -108,7 +108,7 @@ secondStep size sieve =
 
 thirdStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 thirdStep size sieve =
-  let topx = floor( (sqrt(fromIntegral size)) :: Double) in
+  let topx = floor( sqrt(fromIntegral size) :: Double) in
   flipAll (sort [n | n <- [3*x^(2::Integer) - y^(2 :: Integer) | x <- [1..topx],
                            y <- [(x-1),(x-3)..1],
                            x > y],
@@ -117,7 +117,7 @@ thirdStep size sieve =
 
 unmarkMultiples :: Int -> Int -> [(Int,Int)] -> [(Int,Int)]
 unmarkMultiples limit n sieve =
-  let nonPrimes = [y | y <-[n,n+n..limit]] in
+  let nonPrimes = [n,n+n..limit] in
   unmarkAll nonPrimes sieve
 
 
@@ -127,12 +127,12 @@ unmarkAll []       sieve = sieve
 unmarkAll (np:nps) ((s,b):ss) 
   | np == s   = unmarkAll nps ss
   | np < s    = unmarkAll nps ((s,b):ss)
-  | otherwise = (s,b) : (unmarkAll (np:nps) ss)
+  | otherwise = (s,b) : unmarkAll (np:nps) ss
 
 
 atkin1 :: Int ->  [(Int,Int)]
 atkin1 limit =
-  aSieve1 limit ((thirdStep limit) . (secondStep limit) . (firstStep limit) $ initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
+  aSieve1 limit (thirdStep limit . secondStep limit . firstStep limit $ initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
 
 
 aSieve1 :: Int -> [(Int,Int)] ->[(Int,Int)] -> [(Int,Int)]
