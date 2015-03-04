@@ -1,9 +1,9 @@
 module Numeric.Euler.Primes (
-  isPrime2,
-  trialAndDivision2,
-  erastothenes3,
-  sundaram5,
-  atkin1
+  isPrime,
+  trialAndDivision,
+  erastothenes,
+  sundaram,
+  atkin
   ) where
 
 import Data.List (sort)
@@ -13,24 +13,24 @@ import Data.List (sort)
 -------------------------------------------------}
 
 
-isPrime2 :: Integral a => a -> Bool
-isPrime2 n
+isPrime :: Integral a => a -> Bool
+isPrime n
   | n == 2    = True
   | otherwise = not (any (\i -> n `mod` i == 0) [3..n-1])
 
-trialAndDivision2 :: Int -> [Int]
-trialAndDivision2 limit = 2:3:5:[n | n <- [7,9..limit], isPrime2 n]
+trialAndDivision :: Int -> [Int]
+trialAndDivision limit = 2:3:5:[n | n <- [7,9..limit], isPrime n]
 
 
 {-------------------------------------------------
 -------------------------------------------------}
 
-erastothenes3 :: Int -> [Int]
-erastothenes3 limit = eSieve3 [3,5..limit] [2]
+erastothenes :: Int -> [Int]
+erastothenes limit = eSieve [3,5..limit] [2]
 
-eSieve3 :: [Int] -> [Int] -> [Int]
-eSieve3 [] primes     = primes
-eSieve3 (x:xs) primes = eSieve3 [y | y <- xs, y `mod` x /= 0] (x:primes)
+eSieve :: [Int] -> [Int] -> [Int]
+eSieve [] primes     = primes
+eSieve (x:xs) primes = eSieve [y | y <- xs, y `mod` x /= 0] (x:primes)
 
 
 {-------------------------------------------------
@@ -42,8 +42,8 @@ initialSundaramSieve limit =
   [i + j + 2 * i * j | i <- [1..topi],
    j <- [i..floor ((fromIntegral(limit-i) / fromIntegral(2*i+1)) :: Double)]]
 
-sundaram5 :: Int -> [Int]
-sundaram5 limit =
+sundaram :: Int -> [Int]
+sundaram limit =
   let halfLimit = floor( ((fromIntegral limit / 2)-1) :: Double) in
   2:removeComposites [1..halfLimit] (sort $ initialSundaramSieve halfLimit) 
 
@@ -110,8 +110,7 @@ thirdStep :: Int ->  [(Int,Int)] ->  [(Int,Int)]
 thirdStep size sieve =
   let topx = floor( sqrt(fromIntegral size) :: Double) in
   flipAll (sort [n | n <- [3*x^(2::Integer) - y^(2 :: Integer) | x <- [1..topx],
-                           y <- [(x-1),(x-3)..1],
-                           x > y],
+                           y <- [(x-1),(x-3)..1]],
                  n `mod` 60 `elem` [11,23,47,59]])
   sieve
 
@@ -130,13 +129,13 @@ unmarkAll (np:nps) ((s,b):ss)
   | otherwise = (s,b) : unmarkAll (np:nps) ss
 
 
-atkin1 :: Int ->  [(Int,Int)]
-atkin1 limit =
-  aSieve1 limit (thirdStep limit . secondStep limit . firstStep limit $ initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
+atkin :: Int ->  [(Int,Int)]
+atkin limit =
+  aSieve limit (thirdStep limit . secondStep limit . firstStep limit $ initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
 
 
-aSieve1 :: Int -> [(Int,Int)] ->[(Int,Int)] -> [(Int,Int)]
-aSieve1 _     []         primes = primes
-aSieve1 limit ((x,b):xs) primes
-  | b == 1 = aSieve1 limit (unmarkMultiples limit (x^(2::Integer)) xs) ((x,b): primes)
-  | otherwise = aSieve1 limit xs primes
+aSieve :: Int -> [(Int,Int)] ->[(Int,Int)] -> [(Int,Int)]
+aSieve _     []         primes = primes
+aSieve limit ((x,b):xs) primes
+  | b == 1 = aSieve limit (unmarkMultiples limit (x^(2::Integer)) xs) ((x,b): primes)
+  | otherwise = aSieve limit xs primes
