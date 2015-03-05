@@ -1,25 +1,45 @@
 module Main (main) where
 
 import Data.List (genericLength)
-import Data.Maybe (catMaybes)
 import System.Exit (exitFailure, exitSuccess)
+import Text.XML.Light
+import Data.Maybe
+import Text.XML.Light.Proc
 import System.Process (readProcess)
-import Text.Regex (matchRegex, mkRegex)
-
-average :: (Fractional a, Real b) => [b] -> a
-average xs = realToFrac (sum xs) / genericLength xs
+import Data.String
 
 expected :: Fractional a => a
 expected = 85
 
+simpleQName :: String -> QName
+simpleQName name = QName{qName=name, qURI=Nothing, qPrefix=Nothing}
+
+usefulMetrics :: QName -> Bool
+usefulMetrics name = name `elem` [simpleQName "exprs", simpleQName "booleans",simpleQName "alts", simpleQName "local", simpleQName "toplevel"]
+
+extractValues :: Element -> (String,String)
+extractValues element = (fromMaybe ("no string"::String) (findAttrBy (\name -> name == simpleQName "boxes") element),
+                         fromMaybe ("no string"::String) (findAttrBy (\name -> name == simpleQName "count") element))
+
+calculatePercentages :: (String,String) -> Float
+calculatePercentages tuple = 100 *
+                             (read (snd tuple) :: Float) /
+                             (read (fst tuple) :: Float)
+
+coverageOk :: [Float] -> Bool
+coverageOk values = (realToFrac (sum values) / genericLength values) > expected
+--coverageOk = all (> expected)
+
 main :: IO ()
 main = do
-  output <- readProcess "hpc" ["report", "./spec.tix"] ""
-  if average (match output) >= expected
-    then exitSuccess
-    else putStr output >> exitFailure
-
-match :: String -> [Int]
-match = fmap read . concat . catMaybes . fmap (matchRegex pattern) . lines
-  where
-    pattern = mkRegex "^ *([0-9]*)% "
+  s <- readProcess "hpc" ["report", "./spec.tix", "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main", "--xml-output"] ""
+  case parseXMLDoc s of
+   Nothing -> error "Failed to parse xml. Try running HPC manually..."
+   Just doc -> let elements = filterChildrenName usefulMetrics (head $ elChildren doc)
+                   values = map extractValues elements
+                   percents = map calculatePercentages values
+               in if coverageOk percents
+                  then exitSuccess
+                  else do
+                    output <- readProcess "hpc" ["report", "./spec.tix", "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main"] ""
+                    putStr output >> exitFailure
