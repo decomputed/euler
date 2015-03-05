@@ -39,7 +39,7 @@ spec =  do
       length (atkin 100000) `shouldBe` 9592
 
   describe "All sieves generate prime numbers" $
-    modifyMaxSize (const 10000) $
+    modifyMaxSize (const 100000) $
     do
       prop "erastothenes always generates prime numbers" $
         \x -> all isPrime (erastothenes x)
@@ -47,3 +47,4 @@ spec =  do
         \x -> all isPrime (sundaram x)
       prop "atkin always generates prime numbers" $
         \x -> all isPrime (fst. unzip $ atkin x)
+
