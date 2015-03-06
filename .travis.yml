@@ -2,6 +2,8 @@ language: haskell
 ghc: 7.8
 
 before_install:
+  - whoami
+  - echo $HOME
   - sudo apt-get update
   - sudo apt-get install -y happy alex
   - cabal clean
