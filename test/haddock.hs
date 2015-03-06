@@ -12,7 +12,7 @@ readMatchAsInt :: [String] -> Float
 readMatchAsInt list = read (list !! 1) :: Float
 
 coverageOk :: [Float] -> Bool
-coverageOk values = (realToFrac (sum values) / genericLength values) > expected
+coverageOk values = (realToFrac (sum values) / genericLength values) > (expected :: Double)
 --coverageOk = all (> expected)
 
 main :: IO ()
