@@ -1,7 +1,8 @@
 -*-change-log-*-
 
 0.5.0 (next release version)
-    * Adds `changelog.md`.
+    * Adds `changelog.md`;
+    * Adds Criterion benchmarks;
 
 0.4.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 6 2015
     * Adds full documentation to the Primes module;
