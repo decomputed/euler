@@ -2,7 +2,11 @@
 
 [![Build Status](https://travis-ci.org/decomputed/euler.svg?branch=master)](https://travis-ci.org/decomputed/euler)
 
-This repo contains functions to help in mathematics calculations or puzzles using Haskell.
+This repo contains functions to help in mathematics calculations or puzzles using Haskell. Currently there is only one module, Primes, which contains implementations of three sieves:
+
+- [Sieve of Erastothenes](https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
+- [Sieve of Sundaram](https://en.wikipedia.org/wiki/Sieve_of_Sundaram)
+- [Sieve of Atkin](https://en.wikipedia.org/wiki/Sieve_of_Atkin)
 
 The current major version (0) is stable enough to be used for Project Euler problems. You can check usage of it in my [project Euler repository](https://github.com/decomputed/projectEuler).
 
