@@ -2,13 +2,13 @@ language: haskell
 ghc: 7.8
 
 before_install:
-  - sudo apt-get update
-  - sudo apt-get install -y happy alex
   - cabal clean
   - rm -rf ~/.ghc ~/.cabal
   - rm -rf ./.cabal-sandbox/ ./cabal.sandbox.config
   - cabal sandbox init
   - cabal update
+  - cabal install happy
+  - cabal install alex
 
 install:
   - ghc --version
@@ -18,8 +18,6 @@ install:
 
 script:
   - cabal install --only-dependencies --enable-tests
-  - echo "------------------------------------------"
   - cat /home/travis/build/decomputed/euler/.cabal-sandbox/logs/haskell-src-exts-1.16.0.1.log
-  - echo "------------------------------------------"
   - cabal build
   - cabal test
