@@ -3,6 +3,7 @@
 0.5.0 (next release version)
     * Adds `changelog.md`;
     * Adds Criterion benchmarks;
+    * Adds support for travis build;
 
 0.4.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 6 2015
     * Adds full documentation to the Primes module;
