@@ -12,14 +12,14 @@ maintainer:           luis@decomputed.com
 stability:            alpha
 bug-reports:          https://github.com/decomputed/euler/issues
 category:             Math
-extra-source-files:   README.md
+extra-source-files:   README.md changelog.md
 
 library
   default-language:   Haskell2010
   exposed-modules:    Numeric.Euler.Primes
   ghc-options:        -Wall
   hs-source-dirs:     src
-  build-depends:      base == 4.7.*, regex-posix
+  build-depends:      base == 4.7.*
 
 test-suite spec
   default-language:   Haskell2010
@@ -28,7 +28,7 @@ test-suite spec
   type:               exitcode-stdio-1.0
   main-is:            Spec.hs
   build-depends:      base == 4.7.*,
-                      euler == 0.4.*,
+                      euler == 0.5.*,
                       hspec == 2.1.*,
                       hspec-core == 2.1.*,
                       QuickCheck == 2.7.*
