@@ -4,7 +4,18 @@ ghc: 7.8
 before_install:
   - sudo apt-get update
   - sudo apt-get install -y happy alex
+  - cabal clean
+  - rm -rf ./.cabal-sandbox/ ./cabal.sandbox.config
+  - cabal sandbox init
+  - cabal update
 
 install:
   - ghc --version
   - cabal --version
+  - happy --version
+  - alex --version
+
+script:
+  - cabal configure --only-dependencies --enable-tests
+  - cabal build
+  - cabal test
