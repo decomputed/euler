@@ -7,6 +7,7 @@ before_install:
   - sudo apt-get update
   - sudo apt-get install -y happy alex
   - cabal clean
+  - rm -rf ~/.ghc ~/.cabal
   - rm -rf ./.cabal-sandbox/ ./cabal.sandbox.config
   - cabal sandbox init
   - cabal update
