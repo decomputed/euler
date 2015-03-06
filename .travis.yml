@@ -8,6 +8,7 @@ before_install:
   - cabal sandbox init
   - cabal update
   - cabal install happy
+  - cat /home/travis/build/decomputed/euler/.cabal-sandbox/logs/happy-1.19.5.log
   - cabal install alex
 
 install:
