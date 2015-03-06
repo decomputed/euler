@@ -6,7 +6,7 @@ import System.Process (readProcess)
 import Text.Regex.Posix
 
 expected :: Fractional a => a
-expected = 85
+expected = 100
 
 readMatchAsInt :: [String] -> Float
 readMatchAsInt list = read (list !! 1) :: Float
