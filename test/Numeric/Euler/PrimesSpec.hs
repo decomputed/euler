@@ -39,7 +39,7 @@ spec =  do
       length (atkin 100000) `shouldBe` 9592
 
   describe "All sieves generate prime numbers" $
-    modifyMaxSize (const 100000) $
+    modifyMaxSize (const 10000) $
     do
       prop "erastothenes always generates prime numbers" $
         \x -> all isPrime (erastothenes x)
