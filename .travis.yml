@@ -16,6 +16,6 @@ install:
   - alex --version
 
 script:
-  - cabal configure --only-dependencies --enable-tests
+  - cabal configure --enable-tests
   - cabal build
   - cabal test
