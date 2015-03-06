@@ -15,16 +15,23 @@ simpleQName :: String -> QName
 simpleQName name = QName{qName=name, qURI=Nothing, qPrefix=Nothing}
 
 usefulMetrics :: QName -> Bool
-usefulMetrics name = name `elem` [simpleQName "exprs", simpleQName "booleans",simpleQName "alts", simpleQName "local", simpleQName "toplevel"]
+usefulMetrics name = name `elem` [
+  simpleQName "exprs",
+  simpleQName "booleans",
+  simpleQName "alts",
+  simpleQName "local",
+  simpleQName "toplevel"]
 
 extractValues :: Element -> (String,String)
-extractValues element = (fromMaybe ("no string"::String) (findAttrBy (\name -> name == simpleQName "boxes") element),
-                         fromMaybe ("no string"::String) (findAttrBy (\name -> name == simpleQName "count") element))
+extractValues element = (
+  fromMaybe ("no string"::String) (findAttrBy (\name -> name == simpleQName "boxes") element),
+  fromMaybe ("no string"::String) (findAttrBy (\name -> name == simpleQName "count") element))
 
 calculatePercentages :: (String,String) -> Float
-calculatePercentages tuple = 100 *
-                             (read (snd tuple) :: Float) /
-                             (read (fst tuple) :: Float)
+calculatePercentages tuple =
+  100 *
+  (read (snd tuple) :: Float) /
+  (read (fst tuple) :: Float)
 
 coverageOk :: [Float] -> Bool
 coverageOk values = (realToFrac (sum values) / genericLength values) > expected
