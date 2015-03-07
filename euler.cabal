@@ -1,5 +1,5 @@
 name:                 euler
-version:              0.6.0
+version:              0.7.0
 build-type:           Simple
 cabal-version:        >= 1.18
 synopsis:             Mathematics utilities for Haskell
@@ -28,7 +28,7 @@ test-suite spec
   type:               exitcode-stdio-1.0
   main-is:            Spec.hs
   build-depends:      base == 4.7.*,
-                      euler == 0.6.*,
+                      euler == 0.7.*,
                       hspec == 2.1.*
 
 test-suite hpc
@@ -68,7 +68,7 @@ benchmark criterion
   main-is:            Benchmark.hs
   type:               exitcode-stdio-1.0
   build-depends:      base == 4.7.*,
-                      euler == 0.6.*,
+                      euler == 0.7.*,
                       criterion == 1.0.2.*
 
 source-repository head
