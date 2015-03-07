@@ -2,6 +2,8 @@ Change Log
 ==========
 
 0.6.0 (Next stable version)
+    * Makes happy a required build tool;
+    * Fixes GHC warnings;
 
 0.5.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 7 2015
     * Adds `changelog.md`;
