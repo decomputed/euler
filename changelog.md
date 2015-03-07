@@ -1,9 +1,13 @@
--*-change-log-*-
+Change Log
+==========
 
-0.5.0 (next release version)
+0.6.0 (Next stable version)
+
+0.5.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 7 2015
     * Adds `changelog.md`;
     * Adds Criterion benchmarks;
     * Adds support for travis build;
+    * Makes cabal version 1.22 required version.
 
 0.4.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 6 2015
     * Adds full documentation to the Primes module;
@@ -33,10 +37,10 @@
     * Added a unit test;
     * Removed warnings from cabal file; Updated references to dependencies;
     * Fixed errors all over the place;
-    * Removed unused function; cleaned up indentation. 
+    * Removed unused functions; cleaned up indentation.
 
 0.1.0 Luis Rodrigues Soares <luis@decomputed.com> Feb 21 2015
     * Added description to package;
-    * Fixed wrong reference to Module;
+    * Fixed module references;
     * Cabalized the project;
-	* Initial copy from [Problem07.hs](https://github.com/decomputed/projectEuler).
+    * Initial copy of Problem07.hs, from https://github.com/decomputed/projectEuler
