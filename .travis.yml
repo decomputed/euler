@@ -7,17 +7,17 @@ before_install:
   - rm -rf ./.cabal-sandbox/ ./cabal.sandbox.config
   - cabal update
   - cabal install cabal-install
-  - cabal --version
-  - cabal install happy
+  -  ~/.cabal/bin/cabal --version
+  -  ~/.cabal/bin/cabal install happy
   - happy --version
-  - cabal install alex
+  -  ~/.cabal/bin/cabal install alex
   - alex --version
 
 install:
   - ghc --version
 
 script:
-  - cabal install --only-dependencies --enable-tests
+  -  ~/.cabal/bin/cabal install --only-dependencies --enable-tests
   - cat /home/travis/build/decomputed/euler/.cabal-sandbox/logs/haskell-src-exts-1.16.0.1.log
-  - cabal build
-  - cabal test
+  -  ~/.cabal/bin/cabal build
+  -  ~/.cabal/bin/cabal test
