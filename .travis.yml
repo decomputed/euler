@@ -7,8 +7,8 @@ before_install:
   - ghc --version
 
 install:
-  - ./.cabal-sandbox/bin/cabal install --only-dependencies --enable-tests
+  - ~/.cabal/bin/cabal install --only-dependencies --enable-tests
 
 script:
-  - ./.cabal-sandbox/bin/cabal build
-  - ./.cabal-sandbox/bin/cabal test
+  - ~/.cabal/bin/cabal build
+  - ~/.cabal/bin/cabal test
