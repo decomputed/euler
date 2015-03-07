@@ -6,8 +6,7 @@ Change Log
 0.5.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 7 2015
     * Adds `changelog.md`;
     * Adds Criterion benchmarks;
-    * Adds support for travis build;
-    * Makes cabal version 1.22 required version.
+    * Adds support for travis build.
 
 0.4.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 6 2015
     * Adds full documentation to the Primes module;
