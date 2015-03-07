@@ -1,7 +1,9 @@
 Change Log
 ==========
 
-0.6.0 (Next stable version)
+0.7.0 (Next version)
+
+0.6.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 7 2015
     * Makes happy a required build tool;
     * Fixes GHC warnings;
 
