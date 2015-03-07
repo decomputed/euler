@@ -2,12 +2,13 @@ language: haskell
 ghc: 7.8
 
 before_install:
-  - cabal install happy
-  - cabal install alex
+  - cabal install cabal-install
+  - ~/.cabal/bin/cabal install happy
+  - ~/.cabal/bin/cabal install alex
 
 install:
-  - cabal install --only-dependencies --enable-tests
+  - ~/.cabal/bin/cabal install --only-dependencies --enable-tests
 
 script:
-  - cabal build
-  - cabal test
+  - ~/.cabal/bin/cabal build
+  - ~/.cabal/bin/cabal test
