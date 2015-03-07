@@ -5,17 +5,16 @@ before_install:
   - cabal clean
   - rm -rf ~/.ghc ~/.cabal
   - rm -rf ./.cabal-sandbox/ ./cabal.sandbox.config
-  - cabal sandbox init
   - cabal update
+  - cabal install cabal-install
+  - cabal --version
   - cabal install happy
-  - cat /home/travis/build/decomputed/euler/.cabal-sandbox/logs/happy-1.19.5.log
+  - happy --version
   - cabal install alex
+  - alex --version
 
 install:
   - ghc --version
-  - cabal --version
-  - happy --version
-  - alex --version
 
 script:
   - cabal install --only-dependencies --enable-tests
