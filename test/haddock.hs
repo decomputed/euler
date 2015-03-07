@@ -1,8 +1,8 @@
 module Main (main) where
 
-import Data.List (genericLength)
-import System.Exit (exitFailure, exitSuccess)
-import System.Process (readProcess)
+import Data.List
+import System.Exit
+import System.Process
 import Text.Regex.Posix
 
 expected :: Fractional a => a

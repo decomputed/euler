@@ -1,12 +1,10 @@
 module Main (main) where
 
-import Data.List (genericLength)
-import System.Exit (exitFailure, exitSuccess)
+import Data.List
+import System.Exit
 import Text.XML.Light
 import Data.Maybe
-import Text.XML.Light.Proc
-import System.Process (readProcess)
-import Data.String
+import System.Process
 
 expected :: Fractional a => a
 expected = 85
@@ -34,7 +32,7 @@ calculatePercentages tuple =
   (read (fst tuple) :: Float)
 
 coverageOk :: [Float] -> Bool
-coverageOk values = (realToFrac (sum values) / genericLength values) > expected
+coverageOk values = (realToFrac (sum values) / genericLength values) > (expected :: Double)
 --coverageOk = all (> expected)
 
 main :: IO ()
