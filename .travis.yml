@@ -2,17 +2,8 @@ language: haskell
 ghc: 7.8
 
 before_install:
-  - cabal clean
-  - rm -rf ~/.ghc ~/.cabal
-  - rm -rf ./.cabal-sandbox/ ./cabal.sandbox.config
-  - cabal update
-  - cabal sandbox init
   - cabal install cabal-install
-  - ./.cabal-sandbox/bin/cabal --version
-  - ./.cabal-sandbox/bin/cabal install happy
-  - happy --version
-  - ./.cabal-sandbox/bin/cabal install alex
-  - alex --version
+  - ~/.cabal/bin/cabal --version
   - ghc --version
 
 install:
