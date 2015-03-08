@@ -5,6 +5,7 @@ import System.Exit
 import Text.XML.Light
 import Data.Maybe
 import System.Process
+import System.Directory
 
 expected :: Fractional a => a
 expected = 85
@@ -35,10 +36,14 @@ coverageOk :: [Float] -> Bool
 coverageOk values = (realToFrac (sum values) / genericLength values) > (expected :: Double)
 --coverageOk = all (> expected)
 
-main :: IO ()
-main = do
-  s <- readProcess "hpc" ["report", "./spec.tix", "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main", "--xml-output"] ""
-  case parseXMLDoc s of
+hpc :: String -> Bool -> IO String
+hpc tixFile True  = readProcess "hpc" ["report", tixFile, "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main", "--xml-output"] ""
+hpc tixFile False = readProcess "hpc" ["report", tixFile, "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main"] ""
+
+readCoverageFrom :: String -> IO ()
+readCoverageFrom tixFile = do
+  s <- hpc tixFile True
+  case parseXMLDoc s of 
    Nothing -> error "Failed to parse xml. Try running HPC manually..."
    Just doc -> let elements = filterChildrenName usefulMetrics (head $ elChildren doc)
                    values = map extractValues elements
@@ -46,5 +51,13 @@ main = do
                in if coverageOk percents
                   then exitSuccess
                   else do
-                    output <- readProcess "hpc" ["report", "./spec.tix", "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main"] ""
-                    putStr output >> exitFailure
+                    hpcOutput <- hpc tixFile False
+                    putStr hpcOutput >> exitFailure
+
+main :: IO ()
+main = do
+  specExists <- doesFileExist "./spec.tix"
+  if specExists 
+  then readCoverageFrom ("./spec.tix" :: String)
+  else readCoverageFrom ("./dist/hpc/tix/spec/spec.tix" :: String)
+
