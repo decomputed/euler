@@ -5,11 +5,8 @@ before_install:
   - cabal install happy
 
 install:
-  - cabal install --only-dependencies --enable-tests
+  - cabal install --only-dependencies --enable-tests --enable-library-coverage
 
 script:
   - cabal build
   - cabal test
-  - hpc version
-  - which hpc
-  - hpc report ./spec.tix --exclude=Numeric.Euler.PrimesSpec --exclude=Main --xml-output
