@@ -14,9 +14,13 @@ The current major version (0) is stable enough to be used for Project Euler prob
 
 You can also find this package [in Hackage](http://hackage.haskell.org/package/euler).
 
-## How to build?
+## Dependencies
 
-If you want to build it locally, you'll need GHC and cabal. You'll also need `happy` though you don't need to have it globally. Here's how you can do it:
+- GHC 7.8
+- `cabal-install` 1.22
+- `happy`
+
+## How to build?
 
     git clone https://github.com/decomputed/euler.git
     cd euler
