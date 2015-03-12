@@ -27,6 +27,7 @@ test-suite spec
   hs-source-dirs:     test, src
   type:               exitcode-stdio-1.0
   main-is:            Spec.hs
+  build-tools:        cabal-install == 1.22.*
   build-depends:      base == 4.7.*,
                       euler == 0.7.*,
                       hspec == 2.1.*
