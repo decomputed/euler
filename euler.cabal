@@ -1,4 +1,4 @@
-HPname:                 euler
+name:                 euler
 version:              0.7.0
 build-type:           Simple
 cabal-version:        >= 1.18
