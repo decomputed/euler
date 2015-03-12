@@ -5,7 +5,7 @@ before_install:
   - cabal install happy
 
 install:
-  - cabal install --only-dependencies --enable-tests
+  - cabal install --only-dependencies --enable-tests --enable-library-coverage
 
 script:
   - cabal build

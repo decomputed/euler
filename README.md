@@ -22,7 +22,7 @@ If you want to build it locally, you'll need GHC and cabal. You'll also need `ha
     cd euler
     cabal sandbox init
     cabal install happy
-    cabal install --only-dependencies --enable-tests --enable-benchmarks
+    cabal install --only-dependencies --enable-tests --enable-benchmarks --enable-library-coverage
     cabal build
     cabal test
     cabal bench

@@ -37,8 +37,8 @@ coverageOk values = (realToFrac (sum values) / genericLength values) > (expected
 --coverageOk = all (> expected)
 
 hpc :: String -> Bool -> IO String
-hpc tixFile True  = readProcess "hpc" ["report", tixFile, "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main", "--xml-output"] ""
-hpc tixFile False = readProcess "hpc" ["report", tixFile, "--exclude=Numeric.Euler.PrimesSpec", "--exclude=Main"] ""
+hpc tixFile True  = readProcess "hpc" ["report", tixFile, "--include=Numeric.Euler.Primes", "--xml-output"] ""
+hpc tixFile False = readProcess "hpc" ["report", tixFile, "--include=Numeric.Euler.Primes"] ""
 
 readCoverageFrom :: String -> IO ()
 readCoverageFrom tixFile = do
