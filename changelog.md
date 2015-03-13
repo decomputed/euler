@@ -1,11 +1,14 @@
 Change Log
 ==========
 
-0.7.0 (Next version)
+0.8.0 (Next release)
+
+0.7.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 13 2015
+    * Fixes for HPC test-suite.
 
 0.6.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 7 2015
     * Makes happy a required build tool;
-    * Fixes GHC warnings;
+    * Fixes GHC warnings.
 
 0.5.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 7 2015
     * Adds `changelog.md`;
