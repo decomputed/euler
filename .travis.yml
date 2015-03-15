@@ -2,10 +2,10 @@ language: haskell
 ghc: 7.8
 
 before_install:
-  - cabal install happy regex-posix hlint hspec
+  - cabal install happy regex-posix hlint hspec xml
 
 install:
-  - runhaskell Setup.hs configure --enable-tests --user
+  - runhaskell Setup.hs configure --enable-tests --enable-library-coverage --user
 
 script:
   - runhaskell Setup.hs build
