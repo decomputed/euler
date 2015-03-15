@@ -17,7 +17,7 @@ coverageOk values = (realToFrac (sum values) / genericLength values) >= (expecte
 
 main :: IO ()
 main = do
-  output <- readProcess "cabal" ["haddock"] ""
+  output <- readProcess "haddock" ["src/Numeric/Euler/Primes.hs"] ""
   let percents = map readMatchAsInt (output =~ "^ *([0-9]*)% " :: [[String]]) in
    if coverageOk percents
    then exitSuccess
