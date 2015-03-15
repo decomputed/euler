@@ -1,6 +1,8 @@
 Change Log
 ==========
 
+0.9.0 (Next release)
+
 0.8.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 15 2015
     * Adds examples of build scripts that use both `cabal` and `runhaskell`;
     * Makes the HPC script more resilient to a build done with `cabal` vs a build done with `runhaskell`;
