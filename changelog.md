@@ -1,7 +1,8 @@
 Change Log
 ==========
 
-0.9.0 (Next release)
+0.8.1 Luis Rodrigues Soares <luis@decomputed.com> Mar 19 2015
+    * Logs more information while running.
     * Documentation update.
 
 0.8.0 Luis Rodrigues Soares <luis@decomputed.com> Mar 15 2015
