@@ -48,7 +48,7 @@ hpc tixFile False = readProcessWithExitCode "hpc" tixFile ""
 
 printProcessOutput :: (ExitCode,String,String) -> IO ()
 printProcessOutput (exitCode,stdout,stderr) = do
-  putStrLn (show exitCode)
+  print exitCode
   putStrLn "......................................."
   putStrLn stdout
   putStrLn "......................................."
