@@ -94,6 +94,17 @@ fileExists fileName =
       do
         putStrLn ("1 ====== '" ++ fileName ++ "' does NOT exist.")
         return False
+{-
+special :: String -> IO (Maybe String)
+special filename =
+  do
+    exists <- doesFileExist filename
+    if exists
+    then return (Just filename)
+    else return Nothing
+-}
+-- return (<|>) `ap` (special "suren") `ap` (special "./euler.cabal")
+-- current status: considdering fold since the previous line is not elegant.
 
 main :: IO ()
 main =
