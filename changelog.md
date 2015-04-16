@@ -1,5 +1,9 @@
 Change Log
 ==========
+
+0.10.1 Luis Rodrigues Soares <luis@decomputed.com> 
+    * 
+
 0.9.2 Luis Rodrigues Soares <luis@decomputed.com> Apr 16 2015
     * Removes logging information.
     * Builds with GHC 7.10.
