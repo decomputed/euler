@@ -5,7 +5,6 @@ import System.Exit
 import Text.XML.Light
 import Data.Maybe
 import System.Process
-import System.Directory
 
 expected :: Fractional a => a
 expected = 85
@@ -15,9 +14,6 @@ simpleQName name = QName{qName=name, qURI=Nothing, qPrefix=Nothing}
 
 paramsForCabal :: String -> [String]
 paramsForCabal tixFile = ["report", tixFile, "--include=Numeric.Euler.Primes"]
-
-paramsForRunAH :: String -> [String]
-paramsForRunAH tixFile = ["report", tixFile, "--hpcdir=dist/hpc/mix/spec", "--exclude=Main"]
 
 usefulMetrics :: QName -> Bool
 usefulMetrics name = name `elem` [
@@ -40,83 +36,26 @@ calculatePercentages tuple =
 
 coverageOk :: [Float] -> Bool
 coverageOk values = (realToFrac (sum values) / genericLength values) > (expected :: Double)
---coverageOk = all (> expected)
 
-hpc :: [String] -> Bool -> IO (ExitCode, String, String)
-hpc tixFile True  = readProcessWithExitCode "hpc" (tixFile ++ ["--xml-output"]) ""
-hpc tixFile False = readProcessWithExitCode "hpc" tixFile ""
-
-printProcessOutput :: (ExitCode,String,String) -> IO ()
-printProcessOutput (exitCode,stdout,stderr) = do
-  print exitCode
-  putStrLn "......................................."
-  putStrLn stdout
-  putStrLn "......................................."
-  putStrLn stderr
+hpc :: [String] -> IO String
+hpc tixFile = readProcess "hpc" (tixFile ++ ["--xml-output"]) ""
 
 readCoverageFrom :: [String] -> IO ()
 readCoverageFrom tixFile = do
-  (exitCode,stdout,stderr) <- hpc tixFile True
-  putStrLn ""
-  putStrLn "2 ====== Output from hpc command ======"
-  printProcessOutput (exitCode,stdout,stderr)
-  putStrLn "======================================="
-  putStrLn ""
+  stdout <- hpc tixFile
   case parseXMLDoc stdout of 
    Nothing -> error "Failed to parse xml. Try running HPC manually..."
    Just doc -> let elements = filterChildrenName usefulMetrics (head $ elChildren doc)
                    values = map extractValues elements
                    percents = map calculatePercentages values
                in if coverageOk percents
-                  then do
-                    putStrLn "3 ====== Coverage was OK. Exiting with success."
-                    putStrLn ""
-                    exitSuccess
-                  else do
-                    putStrLn ("3 ====== Coverage was NOT ok:" ++ show ((realToFrac (sum percents) / genericLength percents)::Double))
-                    (exitCode2,stdout2,stderr2) <- hpc tixFile False
-                    putStrLn "3 ====== Output from hpc command ======"
-                    printProcessOutput (exitCode2,stdout2,stderr2)
-                    putStrLn "======================================="
-                    putStrLn ""
-                    exitFailure
-
-fileExists :: String -> IO Bool
-fileExists fileName =
-  do
-    specExists <- doesFileExist fileName
-    if specExists
-      then
-      do
-        putStrLn ("1 ====== '" ++ fileName ++ "' EXISTS.")
-        return True
-      else
-      do
-        putStrLn ("1 ====== '" ++ fileName ++ "' does NOT exist.")
-        return False
-{-
-special :: String -> IO (Maybe String)
-special filename =
-  do
-    exists <- doesFileExist filename
-    if exists
-    then return (Just filename)
-    else return Nothing
--}
--- return (<|>) `ap` (special "suren") `ap` (special "./euler.cabal")
--- current status: considdering fold since the previous line is not elegant.
+                  then exitSuccess
+                  else
+                    do
+                      humanReadableOutput <- readProcess "hpc" tixFile ""
+                      putStrLn ""
+                      putStrLn humanReadableOutput
+                      exitFailure
 
 main :: IO ()
-main =
-  do
-    putStrLn ""
-    exists <- fileExists "./spec.tix"
-    if exists
-    then readCoverageFrom (paramsForCabal "./spec.tix")
-    else 
-      do
-        exists2 <- fileExists "./dist/hpc/tix/spec/spec.tix"
-        if exists2
-        then readCoverageFrom (paramsForRunAH "./dist/hpc/tix/spec/spec.tix")
-        else putStrLn "1 ====== No file exists." >> exitFailure
-
+main = readCoverageFrom (paramsForCabal "./spec.tix")
