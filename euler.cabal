@@ -1,5 +1,5 @@
 name:                 euler
-version:              0.8.2
+version:              0.9.0
 build-type:           Simple
 cabal-version:        >= 1.18
 synopsis:             Mathematics utilities for Haskell
