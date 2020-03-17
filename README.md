@@ -1,6 +1,6 @@
 # Euler - Mathematics functions for Haskell.
 
-[![Build Status](https://travis-ci.org/decomputed/euler.svg?branch=master)](https://travis-ci.org/decomputed/euler)
+[![Build Status](https://travis-ci.org/luisonthekeyboard/euler.svg?branch=master)](https://travis-ci.org/luisonthekeyboard/euler)
 
 ## What is this?
 
