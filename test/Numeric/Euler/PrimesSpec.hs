@@ -14,7 +14,9 @@ spec :: Spec
 spec =  do
   describe "isPrime, " $
     it "distinguishes between a prime number and a non-prime number" $
-      do isPrime (2 :: Integer) `shouldBe` True
+      do isPrime (1 :: Integer) `shouldBe` False
+         isPrime (2 :: Integer) `shouldBe` True
+         isPrime (4 :: Integer) `shouldBe` False
          isPrime (7 :: Integer) `shouldBe` True
          isPrime (8 :: Integer) `shouldBe` False
 

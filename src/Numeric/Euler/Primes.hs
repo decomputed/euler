@@ -27,8 +27,9 @@ of the integer division with all numbers up to @a-1@.
 -}
 isPrime :: Integral a => a -> Bool
 isPrime n
+  | n <  2    = False
   | n == 2    = True
-  | otherwise = not (any (\i -> n `mod` i == 0) [3..n-1])
+  | otherwise = not (any (\i -> n `mod` i == 0) [2..n-1])
 
 {-|
 The `trialAndDivision` function calculates prime numbers up to a certain limit by using the traditional
