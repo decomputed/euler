@@ -1,13 +1,23 @@
-language: haskell
-ghc: 7.8
+# Build environment
+dist: bionic
 
+# Small image
+language: minimal
+
+# Download and unpack the stack executable
 before_install:
-  - cabal install cabal-install
-  - ~/.cabal/bin/cabal install happy
+- ( mkdir -p ~/.ghcup/bin && curl https://gitlab.haskell.org/haskell/ghcup/raw/master/ghcup > ~/.ghcup/bin/ghcup && chmod +x ~/.ghcup/bin/ghcup) && echo "Installed ghcup"
+- export PATH="$HOME/.cabal/bin:$HOME/.ghcup/bin:$PATH"
+- ghcup -c install-cabal
+- ghcup -c install 8.6.5
+- ghcup -c set 8.6.5
+- ghc --version
+- cabal --version
+- cabal update
+- "cabal user-config update -a 'tests: True'"
 
-install:
-  - ~/.cabal/bin/cabal install --only-dependencies --enable-tests --enable-library-coverage
 
+# Build the package, its tests, and its docs and run the tests
 script:
-  - ~/.cabal/bin/cabal build
-  - ~/.cabal/bin/cabal test
+- cabal build
+- cabal test
