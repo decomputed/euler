@@ -5,13 +5,13 @@ version:              0.10.1
 build-type:           Simple
 synopsis:             Mathematics utilities for Haskell
 description:          Mathematics utilities and functions for Haskell, currently aimed at solving problems in Project Euler.
-homepage:             https://github.com/decomputed/euler
+homepage:             https://github.com/luisonthekeyboard/euler
 license:              MIT
 license-file:         LICENSE
 author:               Luis Rodrigues Soares
-maintainer:           luis@decomputed.com
+maintainer:           luis@luisonthekeyboard.com
 stability:            alpha
-bug-reports:          https://github.com/decomputed/euler/issues
+bug-reports:          https://github.com/luisonthekeyboard/euler/issues
 category:             Math
 extra-source-files:   README.md changelog.md
 
