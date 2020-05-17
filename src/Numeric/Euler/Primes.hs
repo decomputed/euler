@@ -1,6 +1,7 @@
 {-|
 Module      : Primes
-Description : Module with functions to calculate Primme Numbers. Implements 3 sieves.
+Description : Module with functions to calculate Primme Numbers. Implements 3
+              sieves.
 Copyright   : (c) Luis Rodrigues Soares, 2015
 License     : MIT
 Maintainer  : luis@decomputed.com
@@ -22,8 +23,8 @@ import Data.List (sort)
 -------------------------------------------------}
 
 {-|
-The `isPrime` function checks whether a number `a` is prime by successively checking the remainder
-of the integer division with all numbers up to @a-1@.
+The `isPrime` function checks whether a number `a` is prime by successively
+checking the remainder of the integer division with all numbers up to @a-1@.hs
 -}
 isPrime :: Integral a => a -> Bool
 isPrime n
@@ -32,8 +33,8 @@ isPrime n
   | otherwise = not (any (\i -> n `mod` i == 0) [2..n-1])
 
 {-|
-The `trialAndDivision` function calculates prime numbers up to a certain limit by using the traditional
-(and very inneficient) trial and division method.
+The `trialAndDivision` function calculates prime numbers up to a certain limit
+by using the traditional (and very inneficient) trial and division method.
 -}
 trialAndDivision :: Int -> [Int]
 trialAndDivision limit = 2:3:5:[n | n <- [7,9..limit], isPrime n]
@@ -68,7 +69,7 @@ An implementation of the Sieve of Sundaram.
 sundaram :: Int -> [Int]
 sundaram limit =
   let halfLimit = floor( ((fromIntegral limit / 2)-1) :: Double) in
-  2:removeComposites [1..halfLimit] (sort $ initialSundaramSieve halfLimit) 
+  2:removeComposites [1..halfLimit] (sort $ initialSundaramSieve halfLimit)
 
 removeComposites :: [Int] -> [Int] -> [Int]
 removeComposites [] _ = []
@@ -146,7 +147,7 @@ unmarkMultiples limit n sieve =
 unmarkAll :: [Int] -> [(Int,Int)] -> [(Int, Int)]
 unmarkAll _        []    = []
 unmarkAll []       sieve = sieve
-unmarkAll (np:nps) ((s,b):ss) 
+unmarkAll (np:nps) ((s,b):ss)
   | np == s   = unmarkAll nps ss
   | np < s    = unmarkAll nps ((s,b):ss)
   | otherwise = (s,b) : unmarkAll (np:nps) ss
@@ -157,7 +158,10 @@ An implementation of the sieve of Atkin.
 -}
 atkin :: Int ->  [(Int,Int)]
 atkin limit =
-  aSieve limit (thirdStep limit . secondStep limit . firstStep limit $ initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
+  aSieve limit (thirdStep limit .
+                secondStep limit .
+                firstStep limit $
+                initialAtkinSieve limit) [(5,1),(3,1),(2,1)]
 
 
 aSieve :: Int -> [(Int,Int)] ->[(Int,Int)] -> [(Int,Int)]

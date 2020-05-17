@@ -1,4 +1,4 @@
-cabal-version:        3.0
+cabal-version: 3.0
 
 name:                 euler
 version:              0.10.1
@@ -16,22 +16,20 @@ category:             Math
 extra-source-files:   README.md changelog.md
 
 library
-  default-language:   Haskell2010
-  exposed-modules:    Numeric.Euler.Primes
-  ghc-options:        -Wall
-  hs-source-dirs:     src
   build-depends:      base
+  default-language:   Haskell2010
+  hs-source-dirs:     src
+  exposed-modules:    Numeric.Euler.Primes, Numeric.Euler.Integers
+--  ghc-options:        -Wall
 
 test-suite spec
+  build-depends:      base, hspec, euler
   default-language:   Haskell2010
-  ghc-options:        -Wall -fhpc
   hs-source-dirs:     test, src
-  type:               exitcode-stdio-1.0
   main-is:            Spec.hs
-  build-depends:      base,
-                      euler == 0.10.*,
-                      hspec
+  type:               exitcode-stdio-1.0
   build-tool-depends: hspec-discover:hspec-discover
+--  ghc-options:        -Wall
 
 -- test-suite hpc
 --   ghc-options:        -Wall
@@ -76,4 +74,4 @@ test-suite spec
 
 source-repository head
   type:               git
-  location:           https://github.com/decomputed/euler
+  location:           https://github.com/luisonthekeyboard/euler
